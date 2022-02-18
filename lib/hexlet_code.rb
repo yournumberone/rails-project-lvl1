@@ -8,7 +8,7 @@ module HexletCode
   class Tag
 
     def self.build(tag, params = {})
-      html_attributes = params.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "&quot;")
+      html_attributes = params.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "'")
       if block_given?
         "<#{tag} #{html_attributes}>#{yield}</#{tag}>"
       else
