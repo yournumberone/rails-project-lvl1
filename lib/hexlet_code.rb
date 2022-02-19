@@ -5,6 +5,12 @@ require_relative 'hexlet_code/version'
 module HexletCode
   class Error < StandardError; end
 
+  def self.form_for(object, params = {})
+    object_name = object.to_s
+    url = params.include?(:url) ? params[:url].gsub('"', "'") : "#"
+    action="action='#{url}'"
+    "<form #{action} method='post'>\n</form>"
+  end
   class Tag
 
     def self.build(tag, params = {})
@@ -15,6 +21,8 @@ module HexletCode
         "<#{tag} #{html_attributes}>"
       end
     end
+
+
 
   end
 
