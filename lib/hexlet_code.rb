@@ -6,24 +6,22 @@ module HexletCode
   class Error < StandardError; end
 
 
-  def self.form_for(object, options = {}, &block)
-    action = options.include?(:url) ? "action='#{options[:url]}'" : "action='#'"
-    result = ["<form #{action} method='post'><br>"]
-    object.define_singleton_method(:input) do |field, type = {}|
+  def self.form_for(object, action = {url: "#"}, &block)
+    result = ["<form action='#{action[:url]}' method='post'><br>"]
+    object.define_singleton_method(:input) do |field, options = {class: ""}|
       response = object.public_send(field)
       result.push("<label for='#{field}'>#{field.capitalize}</label><br>")
       case
-        when type == {:as=>:text} then result.push("<textarea cols='20' rows='40' name='#{field}'>#{response}</textarea><br>")
-        when type.empty? then result.push("<input name='#{field}' type='text' value='#{response}'><br>")
+        when options[:as] == :text then result.push("<textarea cols='20' class='#{options[:class]}' rows='40' name='#{field}'>#{response}</textarea><br>")
+        when options[:as] == nil then result.push("<input name='#{field}' type='text' class='#{options[:class]}' value='#{response}'><br>")
       end
     end
-    object.define_singleton_method(:submit) do |value = "Save"|
-      submit_tag = "<input name='commit' type='submit' value='#{value}><br>"
-      result.push(submit_tag)
+    object.define_singleton_method(:submit) do |value = "Save", options = {class: ""}|
+      result.push("<input name='commit' type='submit' class='#{options[:class]}' value='#{value}'><br>")
     end
-    block.call object
-    result.push('</form>')
-    result.join
+    block.call object if block_given?
+    result.push('</form><br>')
+    p result.join
   end
 
 

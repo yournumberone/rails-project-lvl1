@@ -23,7 +23,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    HexletCode.form_for @user do |f|
+      f.input :name, class: 'form_field'
+      f.input :job, as: :text
+      f.submit 'Confirm'
+    end
+
+    # <form action='#' method='post' class='form_field' >
+    #   <label for='name'>Name</label>
+    #   <input name='name' type='text'>
+    #   <label for='job'>Job</label>
+    #   <textarea cols='20' rows='40' name='job'>Hexlet</textarea>
+    #   <input name='commit' type='submit' value='Save' >
+    # </form>
 
 ## Development
 
