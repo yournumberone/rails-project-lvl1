@@ -17,8 +17,9 @@ module HexletCode
         when type.empty? then result.push("<input name='#{field}' type='text' value='#{response}'><br>")
       end
     end
-    object.define_singleton_method(:submit) do
-      result.push("<input name='commit' type='submit' value='Save'><br>")
+    object.define_singleton_method(:submit) do |value = "Save"|
+      submit_tag = "<input name='commit' type='submit' value='#{value}><br>"
+      result.push(submit_tag)
     end
     block.call object
     result.push('</form>')
@@ -27,6 +28,7 @@ module HexletCode
 
 
   class Tag
+
 
     def self.build(tag, options = {})
       html_attributes = options.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "'")
