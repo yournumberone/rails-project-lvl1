@@ -2,35 +2,31 @@
 require_relative 'hexlet_code/version'
 
 
-
 module HexletCode
   class Error < StandardError; end
 
 
   def self.form_for(object, options = {}, &block)
-    url = options.include?(:url) ? options[:url].gsub('"', "'") : "#"
-    action="action='#{url}'"
+    action = options.include?(:url) ? "action='#{options[:url]}'" : "action='#'"
     result = ["<form #{action} method='post'><br>"]
     object.define_singleton_method(:input) do |field, type = {}|
       response = object.public_send(field)
-      if type == {:as=>:text}
-        result.push("<textarea cols='20' rows='40' name='#{field}'>"); result.push("#{response}</textarea><br>")
-      elsif type.empty?
-        result.push("<input name='#{field}' type='text' value="); result.push("'#{response}'><br>")
+      result.push("<label for='#{field}'>#{field.capitalize}</label><br>")
+      case
+        when type == {:as=>:text} then result.push("<textarea cols='20' rows='40' name='#{field}'>#{response}</textarea><br>")
+        when type.empty? then result.push("<input name='#{field}' type='text' value='#{response}'><br>")
       end
     end
+    object.define_singleton_method(:submit) do
+      result.push("<input name='commit' type='submit' value='Save'><br>")
+    end
     block.call object
-    result.push("</form>")
-    p result.join
-
+    result.push('</form>')
+    result.join
   end
 
 
   class Tag
-    # def self.input(attribute)
-    #   puts "hi"
-    #   puts attribute
-    # end
 
     def self.build(tag, options = {})
       html_attributes = options.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "'")
