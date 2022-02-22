@@ -12,7 +12,7 @@ module HexletCode
       response = object.public_send(field)
       result.push("<label for='#{field}'>#{field.capitalize}</label><br>")
       case
-        when options[:as] == :text then result.push("<textarea cols='20' class='#{options[:class]}' rows='40' name='#{field}'>#{response}</textarea><br>")
+        when options[:as] == :text then result.push("<textarea cols='50' class='#{options[:class]}' rows='50' name='#{field}'>#{response}</textarea><br>")
         when options[:as] == nil then result.push("<input name='#{field}' type='text' class='#{options[:class]}' value='#{response}'><br>")
       end
     end
