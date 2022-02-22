@@ -1,4 +1,5 @@
-install: #installing/updating dependencies
+#installing/updating dependencies
+install:
 	bundle install
 
 lint:
