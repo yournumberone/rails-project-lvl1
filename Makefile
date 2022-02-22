@@ -1,9 +1,11 @@
 install: #installing/updating dependencies
-	bundle install
+		bundle install
+
 lint:
-	rubocop
+		rubocop
+
 test:
-	rake test
+		rake test
 
 
 
