@@ -23,7 +23,6 @@ module HexletCode
     result.push('</form><br>')
     p result.join
   end
-
   class Tag
     def self.build(tag, options = {})
       html_attributes = options.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "'")
