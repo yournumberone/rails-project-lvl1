@@ -3,30 +3,14 @@
 require_relative 'hexlet_code/version'
 
 module HexletCode
+  autoload :Tag, 'hexlet_code/tag.rb'
+  autoload :FormBuilder, 'hexlet_code/form_builder.rb'
   class Error < StandardError; end
 
   def self.form_for(object, action = { url: '#' }, &block)
-    result = ["<form action='#{action[:url]}' method='post'><br>"]
-    object.define_singleton_method(:input) do |field, options = { class: '' }|
-      response = object.public_send(field)
-      result.push("<label for='#{field}'>#{field.capitalize}</label><br>")
-      if options[:as] == :text
-        result.push("<textarea cols='50' class='#{options[:class]}' rows='50' name='#{field}'>#{response}</textarea><br>")
-      elsif options[:as].nil?
-        result.push("<input name='#{field}' type='text' class='#{options[:class]}' value='#{response}'><br>")
-      end
-    end
-    object.define_singleton_method(:submit) do |value = 'Save', options = { class: '' }|
-      result.push("<input name='commit' type='submit' class='#{options[:class]}' value='#{value}'><br>")
-    end
-    block.call object if block_given?
-    result.push('</form><br>')
-    p result.join
+    form = FormBuilder.new(object)
+    block.call form if block_given?
+    Tag.build('form', action: action[:url], method: 'post') {form.fields}
   end
-  class Tag
-    def self.build(tag, options = {})
-      html_attributes = options.to_s.delete('{}:,').gsub('=>', '=').gsub('"', "'")
-      block_given? ? "<#{tag} #{html_attributes}>#{block.call}</#{tag}>" : "<#{tag} #{html_attributes}>"
-    end
-  end
+
 end

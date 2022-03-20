@@ -24,15 +24,15 @@ class TestHexletCode < Minitest::Test
   def test_that_returns_html_form
     html = HexletCode.form_for @user, url: '/subscribes' do |f|
       f.input :name
-      f.input :job, as: :text, class: 'form_field'
-      f.submit 'Wow', class: 'button'
+      f.input :job, as: :text, cols: 50, rows: 50, class: 'form_field'
+      f.submit 'Wow', class: 'button btn-sm'
     end
     assert_equal(html, @fixture)
   end
 
   def test_that_returns_form
-    assert_equal(HexletCode.form_for(@user) {}, "<form action='#' method='post'><br></form><br>")
-    assert_equal(HexletCode.form_for(@user, url: '/posts') {}, "<form action='/posts' method='post'><br></form><br>")
+    assert_equal(HexletCode::Tag.build('br'), "<br>")
+    assert_equal(HexletCode::Tag.build('img', src: 'path/to/image'), "<img src='path/to/image'>")
     puts @html
   end
 end
