@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
 require_relative 'hexlet_code/version'
+require 'hexlet_code/inputs/basic.rb'
+require 'hexlet_code/inputs/textarea.rb'
 
 module HexletCode
   autoload :Tag, 'hexlet_code/tag.rb'
