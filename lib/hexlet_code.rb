@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 require_relative 'hexlet_code/version'
-require 'hexlet_code/inputs/basic.rb'
-require 'hexlet_code/inputs/textarea.rb'
+require 'hexlet_code/inputs/basic'
+require 'hexlet_code/inputs/textarea'
 
 module HexletCode
   autoload :Tag, 'hexlet_code/tag.rb'
@@ -11,7 +12,6 @@ module HexletCode
   def self.form_for(object, action = { url: '#' }, &block)
     form = FormBuilder.new(object)
     block.call form if block_given?
-    Tag.build('form', action: action[:url], method: 'post') {form.fields}
+    Tag.build('form', action: action[:url], method: 'post') { form.fields }
   end
-
 end

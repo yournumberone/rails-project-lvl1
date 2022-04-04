@@ -1,4 +1,3 @@
-
 class FormBuilder
   def initialize(params)
     @object = params
@@ -16,12 +15,12 @@ class FormBuilder
   def input(field, options = {})
     response = @object.public_send(field)
     label(field)
-    type = options[:as] ? options[:as] : :basic
+    type = options[:as] || :basic
     @form.push Object.const_get(type.to_s.capitalize).new(field, response, options).render
   end
 
   def submit(value = 'Save', options = {})
-    params = {name: 'commit', type: 'submit', value: value}
+    params = { name: 'commit', type: 'submit', value: value }
     params.merge!(options)
     @form.push HexletCode::Tag.build('input', params)
   end
