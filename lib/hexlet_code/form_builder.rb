@@ -17,7 +17,7 @@ class FormBuilder
     response = @object.public_send(field)
     label(field)
     type = options[:as] ? options[:as] : :basic
-    @form.push Object.const_get(type.to_s.capitalize).new(response, options).render
+    @form.push Object.const_get(type.to_s.capitalize).new(field, response, options).render
   end
 
   def submit(value = 'Save', options = {})

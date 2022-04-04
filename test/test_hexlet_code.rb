@@ -27,6 +27,7 @@ class TestHexletCode < Minitest::Test
       f.input :job, as: :text, cols: 50, rows: 50, class: 'form_field'
       f.submit 'Wow', class: 'button btn-sm'
     end
+    puts html
     assert_equal(html, @form)
   end
 
