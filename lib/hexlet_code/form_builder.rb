@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FormBuilder
   def initialize(params)
     @object = params
@@ -5,7 +7,7 @@ class FormBuilder
   end
 
   def fields
-    @form.join('')
+    @form.join
   end
 
   def label(name)

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# basic text field
 class Basic
   attr_reader :render
 

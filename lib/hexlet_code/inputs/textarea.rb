@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# textarea field
 class Text
   attr_reader :render
 
