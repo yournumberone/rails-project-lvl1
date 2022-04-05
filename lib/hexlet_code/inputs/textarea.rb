@@ -2,11 +2,8 @@
 
 # textarea field
 class Text
-  attr_reader :render
 
-  def initialize(field, response, options)
-    @render = HexletCode::Tag.build('textarea', { cols: 20, rows: 40, name: field }.merge(options).except(:as)) do
-      response
-    end
+  def initialize(object, field, response, options)
+    object.push(['textarea', { cols: 20, rows: 40, name: field, content_text: response }.merge(options).except(:as)])
   end
 end

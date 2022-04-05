@@ -12,6 +12,6 @@ module HexletCode
   def self.form_for(object, action = { url: '#' }, &block)
     form = FormBuilder.new(object)
     block.call form if block_given?
-    Tag.build('form', action: action[:url], method: 'post') { form.fields }
+    form.render_html(action[:url])
   end
 end
