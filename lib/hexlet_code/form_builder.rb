@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FormBuilder
-
   def push(inputs)
     @form << inputs
   end
@@ -12,7 +11,7 @@ class FormBuilder
   end
 
   def render_html(url)
-    string_fields = ""
+    string_fields = ''
     @form.each do |field|
       tag, params = field
       if params.include?(:content_text)
