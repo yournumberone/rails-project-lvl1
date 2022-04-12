@@ -1,4 +1,3 @@
-#installing/updating dependencies
 install:
 	bundle install
 

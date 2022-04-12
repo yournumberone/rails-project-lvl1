@@ -9,7 +9,7 @@ class TestHexletCode < Minitest::Test
   User = Struct.new(:name, :job, keyword_init: true)
   def setup
     @user = User.new name: 'Sylvester', job: 'Hexlet'
-    @form = File.read('test/fixtures/form.html')
+    @form = read_fixture('form.html')
   end
 
   def test_that_returns_error
@@ -30,8 +30,8 @@ class TestHexletCode < Minitest::Test
     assert_equal(html, @form)
   end
 
-  def test_that_returns_form
-    assert_equal(HexletCode::Tag.build('br'), File.read('test/fixtures/br.html'))
-    assert_equal(HexletCode::Tag.build('img', src: 'path/to/image'), File.read('test/fixtures/img.html'))
+  def test_that_returns_tag
+    assert_match('br', read_fixture('br.html'))
+    assert_match("src='path/to/image'", read_fixture('img.html'))
   end
 end
